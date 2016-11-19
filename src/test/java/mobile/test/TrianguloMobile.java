@@ -2,6 +2,7 @@ package mobile.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -17,20 +18,25 @@ import io.appium.java_client.remote.MobilePlatform;
 public class TrianguloMobile {
 
 	@Test
-	public void testeTringulo() throws MalformedURLException {
+	public 
+	void testeTringulo() throws MalformedURLException {
+		
+		// localizacao da app para teste
+		File aplicacao = new File("app/TrianguloApp.apk");
+		
 		/*
-		 * Abrir a app - informar que é android - informar o device - informar a
-		 * app - abrir a app
+		 * Informamos as capacidades necessarias para a execucao do teste
 		 */
 		DesiredCapabilities dc = new DesiredCapabilities();
 
 		dc.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
-
 		dc.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
+		dc.setCapability(MobileCapabilityType.APP, aplicacao.getAbsolutePath());
 
-		dc.setCapability(MobileCapabilityType.APP_ACTIVITY, "MainActivity");
-		dc.setCapability(MobileCapabilityType.APP_PACKAGE, "com.eliasnogueira.trianguloapp");
-
+		/* abre a comunicacao entre o codigo e o emulador Android
+		 * lembre-se que antes da execucao o appium deve estar em execucao ou pelo
+		 * Appium.app ou pelo comando 'appium --session-override'
+		 */
 		AndroidDriver<WebElement> android = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), dc);
 
 		// preencher o lado 1 com 3
